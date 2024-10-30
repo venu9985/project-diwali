@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="retrieve()">hit me</button>
+    <div id="employee-container"></div>
+    <script>
+        function retrieve(){
+            fetch("https://reqres.in/api/users?pages=2")
+            .then((res)=>{
+                console.log(res)
+                return res.json()
+            })
+            .then((jsonRes)=>{
+                console.log(jsonRes.data)
+                display(jsonRes.data)
+            })
+        }
+        function display(employees){
+            console.log("from display function",employees)
+            employees.map((i)=>{
+                document.getElementById("employee-container").innerHTML+=`
+                <div>
+                    <p>Name:${i.first_name}</p>
+                    <p>Email:${i.email}</p>
+                    <img src="${i.avatar}" width="30%"/>`
+            })
+        }
+    </script>
+</body>
+</html>
